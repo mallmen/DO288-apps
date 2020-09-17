@@ -84,7 +84,6 @@ pipeline {
                 sh '''
 			oc project ${DEV_PROJECT}
 			oc new-app ${APP_NAME}:latest
-                // TODO: Expose the ${APP_NAME} service for external access
 			oc expose svc/${APP_NAME}
 		   '''
             }
@@ -112,7 +111,6 @@ pipeline {
                 }
                 script {
                     openshift.withCluster() {
-                    // TODO: Tag the ${APP_NAME}:latest image stream in the dev env as ${APP_NAME}:stage in staging
 			openshift.tag("{DEV_PROJECT}/${APP_NAME}:latest","${STAGE_PROJECT}/${APP_NAME}:stage")
                     }
                 }
